@@ -34,7 +34,9 @@ public class PedidoService {
                         Item item = new Item();                                                                         
                         Produto produto = produtoRepository
                             .findById(i.getProduto_id())                            
-                            .orElseThrow();
+                            .orElseThrow(() ->
+                            new RuntimeException("Produto inexistente: " + i.getProduto_id())
+                            );
 
                         item.setProduto(produto);
                         item.setValor(i.getValor());
@@ -50,16 +52,16 @@ public class PedidoService {
     // public boolean delete(Long id) {
     //     return false;
     // }
-    // public Optional<Pedido> update(Long id, PedidoRequestUpdate dto) {
-    //     return pedidoRepository.findById(id)
-    //         .map(p -> pedidoRepository.save(p));
+    public Optional<Pedido> update(Long id, PedidoRequestUpdate dto) {
+        return pedidoRepository.findById(id)
+            .map(p -> pedidoRepository.save(p));
 
-    // }
-    // public Optional<Pedido> getById(Long id) {
-    //     return pedidoRepository.findById(id);
-    // }
+    }
+    public Optional<Pedido> getById(Long id) {
+        return pedidoRepository.findById(id);
+    }
 
-    // public List<Pedido> getAll() {
-    //     return pedidoRepository.findAll();
-    // }    
+    public List<Pedido> getAll() {
+        return pedidoRepository.findAll();
+    }    
 }

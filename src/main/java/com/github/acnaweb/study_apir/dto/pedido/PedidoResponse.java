@@ -1,14 +1,29 @@
 package com.github.acnaweb.study_apir.dto.pedido;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.github.acnaweb.study_apir.dto.item.ItemResponse;
+import com.github.acnaweb.study_apir.model.Pedido;
 
 public class PedidoResponse {
     private Long id;
     private String status;
     private List<ItemResponse> items;
-    
+
+    public PedidoResponse toDto(Pedido pedido) {
+        
+        this.setId(pedido.getId());
+        this.setStatus(pedido.getStatus());
+
+        List<ItemResponse> items = pedido.getItems()
+        .stream()
+        .map(item -> new ItemResponse().toDto(item)).collect(Collectors.toList());
+
+        this.setItems(items);
+        return this;
+    }
+
     public Long getId() {
         return id;
     }
