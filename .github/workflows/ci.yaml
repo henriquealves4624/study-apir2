@@ -3,8 +3,10 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - feature/**   
-
+      - feature/**
+      - release
+      - hotfix   
+      
 jobs:
     build:
         runs-on: ubuntu-latest
