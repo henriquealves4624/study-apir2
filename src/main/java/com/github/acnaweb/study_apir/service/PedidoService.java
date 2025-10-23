@@ -46,6 +46,7 @@ public class PedidoService {
                     .collect(Collectors.toList());
         
         pedido.setItems(items);
+
         return pedidoRepository.save(pedido);
     }
     // public boolean delete(Long id) {

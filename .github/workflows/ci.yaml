@@ -3,7 +3,9 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - feature/**   
+      - feature/**
+      - release
+      - hotfix   
 
 jobs:
     build:
@@ -12,6 +14,8 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v5
             -   name: Build da Aplicação
-                run: mvn clean package
+                run: mvn clean package -DskipTests
             -   name: Execução de Testes Unitários
                 run: mvn test
+            -   name: Teste de Criação de Imagem
+                run: docker build -t study-apir .
